@@ -82,7 +82,6 @@ flutter:
     - family: Epilogue
       fonts:
         - asset: assets/fonts/Epilogue-VariableFont_wght.ttf
-          weight: 700
 
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

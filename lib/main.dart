@@ -14,6 +14,18 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primaryColor: Color(0xFFFE8235),
+        colorScheme: ColorScheme(
+            brightness: Brightness.light,
+            primary: Color(0xFFFE8235),
+            onPrimary: Color(0xFFFFFFFF),
+            secondary: Color(0xFF33122F),
+            onSecondary: Color(0xFFFFFFFF),
+            error: Color.fromARGB(255, 235, 61, 61),
+            onError: Color(0xFFFFFFFF),
+            background: Color(0xFFFFFFFF),
+            onBackground: Color(0xFF000000),
+            surface: Color(0xFFFEF3E7),
+            onSurface: Color(0xFFFFFFFF)),
         primarySwatch: MaterialColor(
           0xFFFE8235,
           <int, Color>{

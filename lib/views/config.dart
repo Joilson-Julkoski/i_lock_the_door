@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:i_lock_the_door/models/infos.dart';
+import 'package:i_lock_the_door/views/dailyEvents.dart';
 import 'package:i_lock_the_door/views/history.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class ConfigView extends StatefulWidget {
@@ -56,7 +56,16 @@ class _ConfigViewState extends State<ConfigView>
                   Container(
                     width: 400,
                     child: InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              // TODO: fazer com q esse user info venha de um provider
+                              builder: (context) => DailyEventsView(
+                                    userInfo: widget.userInfo,
+                                  )),
+                        );
+                      },
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [

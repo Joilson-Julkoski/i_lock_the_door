@@ -1,3 +1,4 @@
+import 'package:i_lock_the_door/models/history.dart';
 import 'package:i_lock_the_door/models/infos.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
@@ -6,13 +7,13 @@ Future<InfosDTO> getInfosFromSection() async {
   final prefs = await SharedPreferences.getInstance();
 
   final bool locked = prefs.getBool("locked") ?? false;
-  List<DateTime> history = [];
+  List<HistoryDTO> history = [];
 
   final String? historyJson = prefs.getString("history");
 
   if (historyJson != null) {
     for (var e in jsonDecode(historyJson)) {
-      history.add(DateTime.fromMillisecondsSinceEpoch(e));
+      history.add(HistoryDTO.fromJson(e));
     }
   }
 
@@ -25,7 +26,7 @@ Future<void> saveData(InfosDTO infos) async {
   await prefs.setBool("locked", infos.locked);
 
   final String historyJson =
-      jsonEncode(infos.history.map((e) => e.millisecondsSinceEpoch).toList());
+      jsonEncode(infos.history.map((e) => e.toJson()).toList());
 
   await prefs.setString("history", historyJson);
 }
