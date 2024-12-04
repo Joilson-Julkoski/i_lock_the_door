@@ -1,3 +1,4 @@
+import 'package:i_lock_the_door/models/event.dart';
 import 'package:i_lock_the_door/models/history.dart';
 import 'package:i_lock_the_door/models/infos.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -17,7 +18,17 @@ Future<InfosDTO> getInfosFromSection() async {
     }
   }
 
-  return InfosDTO(locked: locked, history: history);
+  List<EventDTO> events = [];
+
+  final String? eventsJson = prefs.getString("events");
+
+  if (eventsJson != null) {
+    for (var e in jsonDecode(eventsJson)) {
+      events.add(EventDTO.fromJson(e));
+    }
+  }
+
+  return InfosDTO(locked: locked, history: history, events: events);
 }
 
 Future<void> saveData(InfosDTO infos) async {

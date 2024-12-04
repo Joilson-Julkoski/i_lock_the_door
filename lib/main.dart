@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
             background: Color(0xFFFFFFFF),
             onBackground: Color(0xFF000000),
             surface: Color(0xFFFEF3E7),
-            onSurface: Color(0xFFFFFFFF)),
+            onSurface: Color(0xFF000000)),
         primarySwatch: MaterialColor(
           0xFFFE8235,
           <int, Color>{
@@ -41,6 +41,39 @@ class MyApp extends StatelessWidget {
             900: Color(0xFFFB3600),
           },
         ),
+        inputDecorationTheme: InputDecorationTheme(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: BorderSide(
+              color: Color(0xFFDDDDDD), // Cor da borda padrão
+            ),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: BorderSide(
+              color: Color(0xFFDDDDDD), // Cor da borda quando habilitado
+            ),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: BorderSide(
+              color: Color(0xFFFE8235), // Cor da borda no foco
+              width: 2,
+            ),
+          ),
+          disabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: BorderSide(
+              color: Color(0xFFCCCCCC), // Cor da borda quando desabilitado
+            ),
+          ),
+          hintStyle: TextStyle(
+            color: Color(0xFF999999), // Cor do texto de dica (hintText)
+          ),
+          labelStyle: TextStyle(
+            color: Color(0xFF573926), // Cor do texto do rótulo
+          ),
+        ),
         textTheme: TextTheme(
           displayLarge: TextStyle(
             fontFamily: "Epilogue",
@@ -52,6 +85,7 @@ class MyApp extends StatelessWidget {
           labelLarge: TextStyle(
               fontFamily: "Epilogue", fontSize: 14, color: Colors.white),
         ),
+        iconTheme: IconThemeData(color: Color(0xFF573926)),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
             backgroundColor:

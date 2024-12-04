@@ -14,7 +14,7 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  InfosDTO userInfos = InfosDTO(locked: true, history: []);
+  InfosDTO userInfos = InfosDTO(locked: true, history: [], events: []);
 
   String getGreeting() {
     final hour = DateTime.now().hour;
