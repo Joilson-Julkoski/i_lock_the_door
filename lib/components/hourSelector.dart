@@ -9,6 +9,10 @@ class HourSelector extends StatefulWidget {
 }
 
 class _HourSelectorState extends State<HourSelector> {
+  TextEditingController hour = TextEditingController(text: "00");
+  TextEditingController minutes = TextEditingController(text: "00");
+  bool isAm = true;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -16,23 +20,29 @@ class _HourSelectorState extends State<HourSelector> {
       decoration: BoxDecoration(
           border: Border.all(color: Colors.grey.shade200),
           borderRadius: BorderRadius.circular(10)),
-      child: Column(children: [
-        Text("INSIRA O HORÁRIO"),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Text(
+          "INSIRA O HORÁRIO",
+          style: Theme.of(context).textTheme.labelLarge!.copyWith(
+              color: Color(0xFF707070), fontSize: 11, letterSpacing: 2),
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 8),
+            Expanded(
               child: Column(
                 children: [
                   Container(
-                    width: 80,
                     child: TextField(
+                      style: TextStyle(
+                        height: 3,
+                      ),
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         hintText: '00', // Exemplo de valor padrão
-                        contentPadding:
-                            EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                        // contentPadding:
+                        //     EdgeInsets.symmetric(vertical: 40, horizontal: 15),
                       ),
                       keyboardType: TextInputType.number, // Ajuste para números
                       textAlign: TextAlign.center,
@@ -44,22 +54,29 @@ class _HourSelectorState extends State<HourSelector> {
                       ],
                     ),
                   ),
-                  Text("Hora")
+                  Text(
+                    "Hora",
+                    style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                          color: Color(0xFF707070),
+                        ),
+                  )
                 ],
               ),
             ),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 8),
+            SizedBox(width: 16),
+            Expanded(
               child: Column(
                 children: [
                   Container(
-                    width: 80,
                     child: TextField(
+                      style: TextStyle(
+                        height: 3,
+                      ),
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         hintText: '00', // Exemplo de valor padrão
-                        contentPadding:
-                            EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                        // contentPadding:
+                        //     EdgeInsets.symmetric(vertical: 40, horizontal: 15),
                       ),
                       keyboardType: TextInputType.number, // Ajuste para números
                       textAlign: TextAlign.center,
@@ -71,18 +88,44 @@ class _HourSelectorState extends State<HourSelector> {
                       ],
                     ),
                   ),
-                  Text("Minuto")
+                  Text(
+                    "Minuto",
+                    style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                          color: Color(0xFF707070),
+                        ),
+                  )
                 ],
               ),
             ),
+            SizedBox(width: 16),
             Container(
+              decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey.shade200),
+                  borderRadius: BorderRadius.circular(5)),
               child: Column(
                 children: [
                   InkWell(
-                    child: Container(child: Text("AM")),
+                    onTap: () => setState(() {
+                      isAm = true;
+                    }),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: isAm ? Color(0xFFDADCE0) : null,
+                          border: Border(
+                              bottom: BorderSide(color: Colors.grey.shade200)),
+                          borderRadius: BorderRadius.circular(5)),
+                      padding: EdgeInsets.all(8),
+                      child: Text("AM"),
+                    ),
                   ),
                   InkWell(
-                    child: Container(child: Text("PM")),
+                    onTap: () => setState(() {
+                      isAm = false;
+                    }),
+                    child: Container(
+                        color: !isAm ? Color(0xFFDADCE0) : null,
+                        padding: EdgeInsets.all(8),
+                        child: Text("PM")),
                   )
                 ],
               ),
