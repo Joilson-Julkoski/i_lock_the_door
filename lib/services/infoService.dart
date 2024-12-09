@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:i_lock_the_door/models/event.dart';
 import 'package:i_lock_the_door/models/history.dart';
 import 'package:i_lock_the_door/models/infos.dart';
@@ -40,4 +41,31 @@ Future<void> saveData(InfosDTO infos) async {
       jsonEncode(infos.history.map((e) => e.toJson()).toList());
 
   await prefs.setString("history", historyJson);
+}
+
+Future<List<EventDTO>> getEvents() async {
+  final prefs = await SharedPreferences.getInstance();
+
+  final String? eventsJson = prefs.getString("events");
+
+  List<EventDTO> events = [];
+
+  if (eventsJson != null) {
+    for (var e in jsonDecode(eventsJson)) {
+      events.add(EventDTO.fromJson(e));
+    }
+  }
+  return events;
+}
+
+Future<void> saveEvent(EventDTO event) async {
+  final prefs = await SharedPreferences.getInstance();
+
+  List<EventDTO> events = await getEvents();
+  events.add(event);
+
+  final String eventsString =
+      jsonEncode(events.map((e) => e.toJson()).toList());
+
+  await prefs.setString("events", eventsString);
 }

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:i_lock_the_door/utils/date.dart';
 
 class HourSelector extends StatefulWidget {
-  const HourSelector({super.key});
+  final Function onChange;
+  const HourSelector({super.key, required this.onChange});
 
   @override
   State<HourSelector> createState() => _HourSelectorState();
@@ -12,6 +14,13 @@ class _HourSelectorState extends State<HourSelector> {
   TextEditingController hour = TextEditingController(text: "00");
   TextEditingController minutes = TextEditingController(text: "00");
   bool isAm = true;
+  DateTime time = DateTime.now();
+
+  void handleChange() {
+    time = updateTime(time, int.tryParse(hour.text) ?? 0, int.tryParse(minutes.text) ?? 0);
+    widget.onChange(time);
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +44,8 @@ class _HourSelectorState extends State<HourSelector> {
                 children: [
                   Container(
                     child: TextField(
+                      controller: hour,
+                      onChanged: (e) => handleChange(),
                       style: TextStyle(
                         height: 3,
                       ),
@@ -69,6 +80,8 @@ class _HourSelectorState extends State<HourSelector> {
                 children: [
                   Container(
                     child: TextField(
+                      controller: minutes,
+                      onChanged: (e) => handleChange(),
                       style: TextStyle(
                         height: 3,
                       ),
@@ -132,13 +145,6 @@ class _HourSelectorState extends State<HourSelector> {
             )
           ],
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            TextButton(onPressed: () {}, child: Text("Cancelar")),
-            TextButton(onPressed: () {}, child: Text("Ok"))
-          ],
-        )
       ]),
     );
   }

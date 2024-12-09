@@ -1,19 +1,16 @@
 class EventDTO {
-  final DateTime startTime;
-  final DateTime endTime;
+  final DateTime time;
   final List<int> days;
   final String name;
 
   EventDTO(
-      {required this.startTime,
-      required this.endTime,
+      {required this.time,
       required this.days,
       required this.name});
 
   Map<String, dynamic> toJson() {
     return {
-      'startTime': startTime,
-      'endTime': endTime,
+      'time': time.millisecondsSinceEpoch,
       'days': days,
       'name': name,
     };
@@ -21,9 +18,8 @@ class EventDTO {
 
   factory EventDTO.fromJson(Map<String, dynamic> json) {
     return EventDTO(
-      startTime: DateTime.fromMillisecondsSinceEpoch(json['startTime']),
-      endTime: DateTime.fromMillisecondsSinceEpoch(json['endTime']),
-      days: json['days'],
+      time: DateTime.fromMillisecondsSinceEpoch(json['time']),
+      days: List<int>.from(json['days']),
       name: json['name'],
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:i_lock_the_door/consts.dart';
 import 'package:i_lock_the_door/models/event.dart';
 import 'package:i_lock_the_door/utils/date.dart';
 
@@ -30,6 +31,7 @@ class _EventCardState extends State<EventCard> {
           height: 15,
         ),
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Row(
               children: [
@@ -38,7 +40,7 @@ class _EventCardState extends State<EventCard> {
                   width: 5,
                 ),
                 Text(
-                  "Todos os dias",
+                  dayLabel(),
                   style: Theme.of(context)
                       .textTheme
                       .labelLarge!
@@ -50,14 +52,14 @@ class _EventCardState extends State<EventCard> {
             Row(
               children: [
                 Icon(
-                  Icons.watch,
+                  Icons.access_time,
                   color: Color(0xFFD6CCC6),
                 ),
                 SizedBox(
                   width: 5,
                 ),
                 Text(
-                  "${formatTime(widget.event.startTime)} - ${formatTime(widget.event.endTime)}",
+                  "${formatTime(widget.event.time)}",
                   style: Theme.of(context)
                       .textTheme
                       .labelLarge!
@@ -77,5 +79,26 @@ class _EventCardState extends State<EventCard> {
         )
       ]),
     );
+  }
+
+  String dayLabel() {
+    String resp = "";
+    if (widget.event.days.length == 1) {
+      resp = "Apenas";
+      if (widget.event.days.first == 6 ||  widget.event.days.first == 0) {
+        resp += " no ";
+      } else {
+        resp += " na ";
+      }
+      resp += daysNamed.keys.toList()[widget.event.days.first];
+    }
+    else if (widget.event.days.length == 7) {
+      resp = "Todos os dias";
+    }
+    else {
+      var ordened =   
+      resp = widget.event.days.join(', ');
+    }
+    return resp;
   }
 }

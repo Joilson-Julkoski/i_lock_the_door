@@ -2,7 +2,9 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:i_lock_the_door/components/eventsCard.dart';
 import 'package:i_lock_the_door/components/header.dart';
+import 'package:i_lock_the_door/models/event.dart';
 import 'package:i_lock_the_door/models/infos.dart';
+import 'package:i_lock_the_door/services/infoService.dart';
 import 'package:i_lock_the_door/views/eventRegister.dart';
 
 class DailyEventsView extends StatefulWidget {
@@ -14,6 +16,19 @@ class DailyEventsView extends StatefulWidget {
 }
 
 class _DailyEventsViewState extends State<DailyEventsView> {
+  List<EventDTO> events = [];
+
+  Future<void> fetchData() async {
+    events = await getEvents();
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchData();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,7 +90,7 @@ class _DailyEventsViewState extends State<DailyEventsView> {
   List<Widget> mountEvents() {
     List<Widget> list = [];
 
-    for (var e in widget.userInfo.events) {
+    for (var e in events) {
       list.add(EventCard(event: e));
     }
     return list;
